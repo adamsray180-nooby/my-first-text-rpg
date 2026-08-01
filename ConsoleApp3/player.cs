@@ -8,8 +8,10 @@ namespace ConsoleApp2
     {
         public string name;
         public int health;
-        public int AttackDamage;
+        public int MinDamage;
+        public int MaxDamage;
 
+        private static Random rng = new Random();
         public void CreatePlayer()
         {
             Console.WriteLine("Enter your player name");
@@ -17,9 +19,24 @@ namespace ConsoleApp2
             name = Console.ReadLine();
 
             health = 100;
-            AttackDamage = 10;
+            MinDamage = 5;
+            MaxDamage = 10;
+        }
 
-            
+        public int GetAttackDamage()
+        {
+            return rng.Next(MinDamage, MaxDamage + 1);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health < 0)
+                health = 0;
+        }
+        public bool IsAlive()
+        {
+            return health > 0;
         }
     }
 }

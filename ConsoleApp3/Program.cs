@@ -17,15 +17,8 @@ namespace ConsoleApp2
             Console.WriteLine("testing");
 
             Player myPlayer = new Player();
-
-            Monster goblin = new Monster();
-                
-                goblin.Name = "goblin";
-                goblin.Health = 20;
-                goblin.AttackDamage = 5;
-                goblin.Rarity = "common";
               
-             Pathing Explore = new Pathing();
+            Pathing Explore = new Pathing();
 
             string input = Console.ReadLine();
 
@@ -43,36 +36,18 @@ namespace ConsoleApp2
                     
                     myPlayer.CreatePlayer();
 
-                    await TypeWriterEffect($"\nwelcome {myPlayer.name}\n", 50);
+                    await TypeWriterEffect($"\nwelcome {myPlayer.name}\n", 30);
 
                     string message = "You wake up at the edge of a dark forest.\r\n\r\nYou see two narrow paths stretching before you.";
 
-                    string path = "Take left or right?";
-
-                    await TypeWriterEffect(message, 50);
+                    await TypeWriterEffect(message, 30);
 
                     Console.WriteLine();
 
-                    await TypeWriterEffect(path, 50);
-                    Console.WriteLine();
-                    Console.Write("> ");
-
-                    string pathChoice = Explore.Explore();
-
-
-                    if (pathChoice == "left")
+                    while (myPlayer.health > 0)
                     {
-                        Console.WriteLine("You encountered a goblin");
-
-                        Combat battle = new Combat();
-                        battle.StartCombat(myPlayer, goblin);
+                        Explore.Explore(myPlayer);                    
                     }
-                    else if (pathChoice == "right")
-                    {
-                        Console.WriteLine("You continue walking...");
-                    }
-
-   
                     break;
 
                 case "2":

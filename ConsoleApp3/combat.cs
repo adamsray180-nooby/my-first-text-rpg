@@ -8,7 +8,7 @@ namespace ConsoleApp3
         {
             Console.WriteLine($"{monster.Name} appeared!");
 
-            while (player.health > 0 && monster.Health > 0)
+            while (player.IsAlive() && monster.IsAlive())
             {
                 Console.WriteLine($"{player.name} HP: {player.health}");
                 Console.WriteLine($"{monster.Name} HP: {monster.Health}");
@@ -16,20 +16,24 @@ namespace ConsoleApp3
                 Console.WriteLine("Press Enter to attack");
                 Console.ReadLine();
 
-                monster.Health -= player.AttackDamage;
+                int playerDamage = player.GetAttackDamage();
 
-                Console.WriteLine($"You dealt {player.AttackDamage} damage!");
+                monster.TakeDamage(playerDamage);
 
-                if (monster.Health <= 0)
+                Console.WriteLine($"You dealt {playerDamage} damage!");
+
+                if (!monster.IsAlive())
                 {
                     Console.WriteLine($"You defeated the {monster.Name}!");
                     break;
                 }
 
-                player.health -= monster.AttackDamage;
+                int monsterDamage = monster.GetAttackDamage();
+
+                player.health -= monsterDamage;
 
                 Console.WriteLine($"{monster.Name} attacks!");
-                Console.WriteLine($"You took {monster.AttackDamage} damage.");
+                Console.WriteLine($"You took {monsterDamage} damage. ");
             }
 
             if (player.health <= 0)
