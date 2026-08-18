@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp3
 {
@@ -11,15 +9,19 @@ namespace ConsoleApp3
         public int MinDamage;
         public int MaxDamage;
         public string Rarity;
-
-        public Monster(string name, int health, int minDamage, int maxDamage, string rarity)
+        public string Introduction {  get; set; }
+        
+        //Constructor
+        public Monster(string name, int health, int minDamage, int maxDamage, string rarity, string introduction)
         {
             Name = name;
             Health = health;
             MinDamage = minDamage;
             MaxDamage = maxDamage;
             Rarity = rarity;
+            Introduction = introduction;
         }
+        
         private static Random rng = new Random();
         public int GetAttackDamage()
         {

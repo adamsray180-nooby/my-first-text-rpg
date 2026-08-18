@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using ConsoleApp3;
 
 namespace ConsoleApp2
 {
     internal class Player
     {
+        public List<Item> Inventory {  get; set; } = new List<Item>();
+
         public string name;
         public int health;
         public int MinDamage;
@@ -14,8 +16,9 @@ namespace ConsoleApp2
         private static Random rng = new Random();
         public void CreatePlayer()
         {
-            Console.WriteLine("Enter your player name");
+            Inventory.Clear();
 
+            Console.WriteLine("Enter your player name");
             name = Console.ReadLine();
 
             health = 100;
@@ -37,6 +40,15 @@ namespace ConsoleApp2
         public bool IsAlive()
         {
             return health > 0;
+        }
+        public void Heal(int amount)
+        {
+            health += amount;
+
+            if (health > 100)
+            {
+                health = 100;
+            }
         }
     }
 }

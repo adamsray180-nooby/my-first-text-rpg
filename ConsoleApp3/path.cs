@@ -1,9 +1,5 @@
 ﻿using ConsoleApp2;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace ConsoleApp3
 {
@@ -13,44 +9,74 @@ namespace ConsoleApp3
 
         public void Explore(Player player)
         {
-            Console.WriteLine("You come to a fork in the road");
-            Console.WriteLine("Do you go left or right");
-
-            string choice = Console.ReadLine().ToLower();
-
-            if (choice == "left" || choice == "right")
+            while (true)
             {
-                Console.WriteLine($"You chose to go {choice}. ");
+                Console.WriteLine("You come to a fork in the road.");
+                Console.WriteLine();
+                Console.WriteLine("Do you go left or right?");
 
-                RandomEncounter(player);
-            }
-            else
-            {
-                Console.WriteLine("You must choose left or right");
-            }
+                string choice = Console.ReadLine().ToLower();
 
+                if (choice == "left" || choice == "right")
+                {
+                    Console.WriteLine($"You chose to go {choice}.");
+
+                    RandomEncounter(player);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please choose left or right.");
+                }
+            }
         }
+
         private void RandomEncounter(Player player)
         {
             int encounterRoll = rng.Next(1, 101);
 
-            if (encounterRoll < 50)
+            if (encounterRoll <= 70)
             {
-                Console.WriteLine("A monster appears!");
+                Monster goblin = new Monster(
+                    "Goblin",
+                    20,
+                    2,
+                    5,
+                    "Common",
+                    "A goblin jumps out from the bushes!");
 
-                Monster goblin = new Monster("Goblin", 20, 2, 5, "Common");
+                Monster wolf = new Monster(
+                    "Wolf",
+                    30,
+                    3,
+                    7,
+                    "Common",
+                    "A hungry wolf blocks your path!");
+
+                Monster skeleton = new Monster(
+                    "Skeleton",
+                    15,
+                    1,
+                    4,
+                    "Common",
+                    "A skeleton rises from the earth!");
+
+                Monster[] monsters =
+                {
+                    goblin,
+                    wolf,
+                    skeleton
+                };
+
+                Monster selectedMonster = monsters[rng.Next(monsters.Length)];
 
                 Combat combat = new Combat();
-                combat.StartCombat(player, goblin);
+                combat.StartCombat(player, selectedMonster);
             }
             else
             {
                 Console.WriteLine("The path is quiet....nothing happens.");
             }
-
         }
-
-
-
     }
 }
